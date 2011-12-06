@@ -73,7 +73,7 @@
  * @version   Release: @package_version@
  * @link      http://pear.php.net/package/Mail_mime
  */
-class Mail_mimePart
+class Mail_MimePart2
 {
     /**
     * The encoding type of this part
