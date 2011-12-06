@@ -157,10 +157,8 @@ class Mail_MimePart2
     *                         If not set, 'charset' will be used
     *     eol               - End of line sequence. Default: "\r\n"
     *     body_file         - Location of file with part's body (instead of $body)
-    *
-    * @access public
     */
-    function Mail_mimePart($body = '', $params = array())
+    public function __construct($body = '', $params = array())
     {
         if (!empty($params['eol'])) {
             $this->_eol = $params['eol'];
@@ -273,7 +271,7 @@ class Mail_MimePart2
      */
     function encode($boundary=null)
     {
-        $encoded =& $this->_encoded;
+        $encoded = $this->_encoded;
 
         if (count($this->_subparts)) {
             $boundary = $boundary ? $boundary : '=_' . md5(rand() . microtime());
@@ -318,7 +316,7 @@ class Mail_MimePart2
         }
 
         // Add headers to $encoded
-        $encoded['headers'] =& $this->_headers;
+        $encoded['headers'] = $this->_headers;
 
         return $encoded;
     }
@@ -429,13 +427,13 @@ class Mail_MimePart2
      *
      * @return Mail_mimePart A reference to the part you just added. It is
      *                       crucial if using multipart/* in your subparts that
-     *                       you use =& in your script when calling this function,
+     *                       you use = in your script when calling this function,
      *                       otherwise you will not be able to add further subparts.
      * @access public
      */
-    function &addSubpart($body, $params)
+    function addSubpart($body, $params)
     {
-        $this->_subparts[] = new Mail_mimePart($body, $params);
+        $this->_subparts[] = new Mail_MimePart2($body, $params);
         return $this->_subparts[count($this->_subparts) - 1];
     }
 
