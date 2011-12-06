@@ -92,7 +92,7 @@ require_once 'Mail/mimePart.php';
  * @version   Release: @package_version@
  * @link      http://pear.php.net/package/Mail_mime
  */
-class Mail_mime
+class Mail_Mime2
 {
     /**
      * Contains the plain text part of the email
