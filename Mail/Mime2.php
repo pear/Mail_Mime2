@@ -508,7 +508,7 @@ class Mail_Mime2
             $ret = $obj->addSubpart($text, $params);
             return $ret;
         } else {
-            $ret = new Mail_mimePart($text, $params);
+            $ret = new Mail_MimePart2($text, $params);
             return $ret;
         }
     }
@@ -534,13 +534,13 @@ class Mail_Mime2
             $ret = $obj->addSubpart($this->_htmlbody, $params);
             return $ret;
         } else {
-            $ret = new Mail_mimePart($this->_htmlbody, $params);
+            $ret = new Mail_NimePart2($this->_htmlbody, $params);
             return $ret;
         }
     }
 
     /**
-     * Creates a new mimePart object, using multipart/mixed as
+     * Creates a new mimePart2 object, using multipart/mixed as
      * the initial content-type and returns it during the
      * build process.
      *
@@ -554,7 +554,7 @@ class Mail_Mime2
         $params['eol']          = $this->_build_params['eol'];
 
         // Create empty multipart/mixed Mail_mimePart object to return
-        $ret = new Mail_mimePart('', $params);
+        $ret = new Mail_MimePart2('', $params);
         return $ret;
     }
 
@@ -577,7 +577,7 @@ class Mail_Mime2
         if (is_object($obj)) {
             return $obj->addSubpart('', $params);
         } else {
-            $ret = new Mail_mimePart('', $params);
+            $ret = new Mail_MimePart2('', $params);
             return $ret;
         }
     }
@@ -601,7 +601,7 @@ class Mail_Mime2
         if (is_object($obj)) {
             return $obj->addSubpart('', $params);
         } else {
-            $ret = new Mail_mimePart('', $params);
+            $ret = new Mail_MimePart2('', $params);
             return $ret;
         }
     }
