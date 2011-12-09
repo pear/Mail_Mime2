@@ -1314,10 +1314,11 @@ class Mail_Mime2
      * @return string          Encoded header data (without a name)
      * @access public
      * @since 1.5.3
+     * @deprecated Just use Mail_MimePart2::encodeHeader() directly with the right EOL param.
      */
     function encodeHeader($name, $value, $charset, $encoding)
     {
-        return Mail_mimePart::encodeHeader(
+        return Mail_MimePart2::encodeHeader(
             $name, $value, $charset, $encoding, $this->_build_params['eol']
         );
     }
