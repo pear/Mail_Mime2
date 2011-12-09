@@ -3,8 +3,8 @@ Bug #18083  Separate charset for attachment's content and headers
 --SKIPIF--
 --FILE--
 <?php
-include "Mail/mime.php";
-$m = new Mail_mime();
+include "Mail/Mime2.php";
+$m = new Mail_Mime2();
 
 $m->addAttachment('testfile', "text/plain",
     base64_decode("xZtjaWVtYQ=="), FALSE,

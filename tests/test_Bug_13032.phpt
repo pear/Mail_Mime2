@@ -3,8 +3,8 @@ Bug #13032  Proper (different) boundary for nested parts
 --SKIPIF--
 --FILE--
 <?php
-include "Mail/mime.php";
-$mime = new Mail_mime("\r\n");
+require_once "Mail/Mime2.php";
+$mime = new Mail_Mime2("\r\n");
 $mime->setHTMLBody('html');
 $mime->setTXTBody('text');
 $mime->addAttachment('file.pdf', 'application/pdf', 'file.pdf', false, 'base64', 'inline');

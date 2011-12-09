@@ -3,9 +3,9 @@ Bug #17175  Content-Description support+ecoding
 --SKIPIF--
 --FILE--
 <?php
-require_once('Mail/mime.php');
+require_once 'Mail/Mime2.php';
 
-$Mime = new Mail_Mime();
+$Mime = new Mail_Mime2();
 $Mime->setTXTBody('Test message.');
 $Mime->addAttachment('test file contents', "text/plain",
     'test.txt', FALSE, 'base64', NULL, 'UTF-8', NULL, NULL, NULL, NULL,

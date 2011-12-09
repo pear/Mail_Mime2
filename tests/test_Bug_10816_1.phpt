@@ -4,8 +4,8 @@ Bug #10816  Unwanted linebreak at the end of output
 --FILE--
 <?php
 $eol = "#";
-include("Mail/mime.php");
-$encoder = new Mail_mime(array('eol'=>$eol));
+include("Mail/Mime2.php");
+$encoder = new Mail_Mime2(array('eol'=>$eol));
 $encoder->setTXTBody('test');
 $encoder->setHTMLBody('<b>test</b>');
 $encoder->addAttachment('Just a test', 'application/octet-stream', 'test.txt', false);

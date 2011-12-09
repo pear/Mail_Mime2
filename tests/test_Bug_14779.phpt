@@ -3,9 +3,9 @@ Bug #14779  Proper header-body separator for empty attachment
 --SKIPIF--
 --FILE--
 <?php
-include "Mail/mime.php";
+require_once "Mail/Mime2.php";
 
-$m = new Mail_mime();
+$m = new Mail_Mime2();
 $m->addAttachment('', "text/plain", 'file.txt', FALSE, 'base64', 'attachment');
 $result = $m->get();
 
