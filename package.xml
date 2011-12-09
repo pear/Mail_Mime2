@@ -77,15 +77,14 @@ using RFC2047 and/or RFC2231.</description>
     <file baseinstalldir="Mail" name="test_Bug_18083.phpt" role="test" />
    </dir> <!-- /tests -->
    <dir name="Mail">
-     <file baseinstalldir="/" name="mime.php" role="php" />
-     <file baseinstalldir="/" name="mimePart.php" role="php" />
+     <file baseinstalldir="/" name="Mime2.php" role="php" />
    </dir>
   </dir> <!-- / -->
  </contents>
  <dependencies>
   <required>
    <php>
-    <min>4.3.0</min>
+    <min>5.0.0</min>
    </php>
    <pearinstaller>
     <min>1.6.0</min>
