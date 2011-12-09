@@ -488,14 +488,14 @@ class Mail_Mime2
      * Adds a text subpart to the mimePart object and
      * returns it during the build process.
      *
-     * @param mixed  &$obj The object to add the part to, or
+     * @param mixed  $obj The object to add the part to, or
      *                     null if a new object is to be created.
      * @param string $text The text to add.
      *
      * @return object      The text mimePart object
      * @access private
      */
-    function &_addTextPart(&$obj, $text)
+    function _addTextPart($obj, $text)
     {
         $params['content_type'] = 'text/plain';
         $params['encoding']     = $this->_build_params['text_encoding'];
@@ -515,13 +515,13 @@ class Mail_Mime2
      * Adds a html subpart to the mimePart object and
      * returns it during the build process.
      *
-     * @param mixed &$obj The object to add the part to, or
+     * @param mixed $obj The object to add the part to, or
      *                    null if a new object is to be created.
      *
      * @return object     The html mimePart object
      * @access private
      */
-    function &_addHtmlPart(&$obj)
+    function _addHtmlPart($obj)
     {
         $params['content_type'] = 'text/html';
         $params['encoding']     = $this->_build_params['html_encoding'];
@@ -545,7 +545,7 @@ class Mail_Mime2
      * @return object The multipart/mixed mimePart object
      * @access private
      */
-    function &_addMixedPart()
+    function _addMixedPart()
     {
         $params                 = array();
         $params['content_type'] = 'multipart/mixed';
@@ -561,13 +561,13 @@ class Mail_Mime2
      * object (or creates one), and returns it during
      * the build process.
      *
-     * @param mixed &$obj The object to add the part to, or
+     * @param mixed $obj The object to add the part to, or
      *                    null if a new object is to be created.
      *
      * @return object     The multipart/mixed mimePart object
      * @access private
      */
-    function &_addAlternativePart(&$obj)
+    function _addAlternativePart($obj)
     {
         $params['content_type'] = 'multipart/alternative';
         $params['eol']          = $this->_build_params['eol'];
@@ -585,13 +585,13 @@ class Mail_Mime2
      * object (or creates one), and returns it during
      * the build process.
      *
-     * @param mixed &$obj The object to add the part to, or
+     * @param mixed $obj The object to add the part to, or
      *                    null if a new object is to be created
      *
      * @return object     The multipart/mixed mimePart object
      * @access private
      */
-    function &_addRelatedPart(&$obj)
+    function _addRelatedPart($obj)
     {
         $params['content_type'] = 'multipart/related';
         $params['eol']          = $this->_build_params['eol'];
@@ -608,13 +608,13 @@ class Mail_Mime2
      * Adds an html image subpart to a mimePart object
      * and returns it during the build process.
      *
-     * @param object &$obj  The mimePart to add the image to
+     * @param object $obj  The mimePart to add the image to
      * @param array  $value The image information
      *
      * @return object       The image mimePart object
      * @access private
      */
-    function &_addHtmlImagePart(&$obj, $value)
+    function _addHtmlImagePart($obj, $value)
     {
         $params['content_type'] = $value['c_type'];
         $params['encoding']     = 'base64';
@@ -639,13 +639,13 @@ class Mail_Mime2
      * Adds an attachment subpart to a mimePart object
      * and returns it during the build process.
      *
-     * @param object &$obj  The mimePart to add the image to
+     * @param object $obj  The mimePart to add the image to
      * @param array  $value The attachment information
      *
      * @return object       The image mimePart object
      * @access private
      */
-    function &_addAttachmentPart(&$obj, $value)
+    function _addAttachmentPart($obj, $value)
     {
         $params['eol']          = $this->_build_params['eol'];
         $params['filename']     = $value['name'];
@@ -887,18 +887,18 @@ class Mail_Mime2
 
         switch (true) {
         case $text && !$attachments:
-            $message =& $this->_addTextPart($null, $this->_txtbody);
+            $message = $this->_addTextPart($null, $this->_txtbody);
             break;
 
         case !$text && !$html && $attachments:
-            $message =& $this->_addMixedPart();
+            $message = $this->_addMixedPart();
             for ($i = 0; $i < count($this->_parts); $i++) {
                 $this->_addAttachmentPart($message, $this->_parts[$i]);
             }
             break;
 
         case $text && $attachments:
-            $message =& $this->_addMixedPart();
+            $message = $this->_addMixedPart();
             $this->_addTextPart($message, $this->_txtbody);
             for ($i = 0; $i < count($this->_parts); $i++) {
                 $this->_addAttachmentPart($message, $this->_parts[$i]);
@@ -907,11 +907,11 @@ class Mail_Mime2
 
         case $html && !$attachments && !$html_images:
             if (isset($this->_txtbody)) {
-                $message =& $this->_addAlternativePart($null);
+                $message = $this->_addAlternativePart($null);
                 $this->_addTextPart($message, $this->_txtbody);
                 $this->_addHtmlPart($message);
             } else {
-                $message =& $this->_addHtmlPart($null);
+                $message = $this->_addHtmlPart($null);
             }
             break;
 
@@ -922,10 +922,10 @@ class Mail_Mime2
             //       * html
             //       * image...
             if (isset($this->_txtbody)) {
-                $message =& $this->_addAlternativePart($null);
+                $message = $this->_addAlternativePart($null);
                 $this->_addTextPart($message, $this->_txtbody);
 
-                $ht =& $this->_addRelatedPart($message);
+                $ht = $this->_addRelatedPart($message);
                 $this->_addHtmlPart($ht);
                 for ($i = 0; $i < count($this->_html_images); $i++) {
                     $this->_addHtmlImagePart($ht, $this->_html_images[$i]);
@@ -934,7 +934,7 @@ class Mail_Mime2
                 // * Content-Type: multipart/related;
                 //    * html
                 //    * image...
-                $message =& $this->_addRelatedPart($null);
+                $message = $this->_addRelatedPart($null);
                 $this->_addHtmlPart($message);
                 for ($i = 0; $i < count($this->_html_images); $i++) {
                     $this->_addHtmlImagePart($message, $this->_html_images[$i]);
@@ -947,9 +947,9 @@ class Mail_Mime2
             //        * text
             //        * html
             //    * image...
-            $message =& $this->_addRelatedPart($null);
+            $message = $this->_addRelatedPart($null);
             if (isset($this->_txtbody)) {
-                $alt =& $this->_addAlternativePart($message);
+                $alt = $this->_addAlternativePart($message);
                 $this->_addTextPart($alt, $this->_txtbody);
                 $this->_addHtmlPart($alt);
             } else {
@@ -962,9 +962,9 @@ class Mail_Mime2
             break;
 
         case $html && $attachments && !$html_images:
-            $message =& $this->_addMixedPart();
+            $message = $this->_addMixedPart();
             if (isset($this->_txtbody)) {
-                $alt =& $this->_addAlternativePart($message);
+                $alt = $this->_addAlternativePart($message);
                 $this->_addTextPart($alt, $this->_txtbody);
                 $this->_addHtmlPart($alt);
             } else {
@@ -976,13 +976,13 @@ class Mail_Mime2
             break;
 
         case $html && $attachments && $html_images:
-            $message =& $this->_addMixedPart();
+            $message = $this->_addMixedPart();
             if (isset($this->_txtbody)) {
-                $alt =& $this->_addAlternativePart($message);
+                $alt = $this->_addAlternativePart($message);
                 $this->_addTextPart($alt, $this->_txtbody);
-                $rel =& $this->_addRelatedPart($alt);
+                $rel = $this->_addRelatedPart($alt);
             } else {
-                $rel =& $this->_addRelatedPart($message);
+                $rel = $this->_addRelatedPart($message);
             }
             $this->_addHtmlPart($rel);
             for ($i = 0; $i < count($this->_html_images); $i++) {
