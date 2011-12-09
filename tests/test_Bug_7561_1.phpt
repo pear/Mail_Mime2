@@ -16,8 +16,8 @@ ini_set('mbstring.func_overload',       6);
 ini_set('mbstring.internal_encoding',   'UTF-8');
 ini_set('mbstring.http_output',         'UTF-8');
 
-include("Mail/mimePart.php");
-$part = new Mail_mimePart('', array('eol'=>"\n"));
+require_once "Mail/MimePart2.php";
+$part = new Mail_MimePart2('', array('eol'=>"\n"));
 // string is UTF-8 encoded
 $input = "Micha\xC3\xABl \xC3\x89ric St\xC3\xA9phane";
 $rv = $part->_quotedPrintableEncode($input);

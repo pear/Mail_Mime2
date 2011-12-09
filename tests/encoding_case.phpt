@@ -4,8 +4,8 @@ Bug #2364   Tabs in _quotedPrintableEncode()
 --FILE--
 <?php
 $test = "Here's\t\na tab\n";
-require_once('Mail/mimePart.php');
-$part = new Mail_mimePart();
+require_once 'Mail/MimePart2.php';
+$part = new Mail_MimePart2();
 print $part->_quotedPrintableEncode($test, 7);
 ?>
 --EXPECT--

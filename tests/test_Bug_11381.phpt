@@ -5,9 +5,9 @@ Bug #11381  Domain name is attached to content-id, trailing greater-than sign is
 <?php
 $from='Test User <user@from.example.com>';
 
-require_once('Mail/mime.php');
+require_once 'Mail/Mime2.php';
 
-$mime=new Mail_mime();
+$mime=new Mail_Mime2();
 
 $body='<img src="test.gif"/>';
 

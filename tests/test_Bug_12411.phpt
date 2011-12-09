@@ -3,8 +3,8 @@ Bug #12411  RFC2047 encoded attachment filenames
 --SKIPIF--
 --FILE--
 <?php
-include "Mail/mime.php";
-$m = new Mail_mime();
+include "Mail/Mime2.php";
+$m = new Mail_Mime2();
 
 // some text with polish Unicode letter at the beginning
 $path = "/path/";
