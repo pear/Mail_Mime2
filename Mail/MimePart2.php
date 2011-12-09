@@ -3,7 +3,7 @@
  * The Mail_MimePart2 class is used to create MIME E-mail messages
  *
  * This class enables you to manipulate and build a mime email
- * from the ground up. The Mail_Mime class is a userfriendly api
+ * from the ground up. The Mail_Mime2 class is a userfriendly api
  * to this class for people who aren't interested in the internals
  * of mime mail.
  * This class however allows full control over the email.
@@ -41,7 +41,7 @@
  * THE POSSIBILITY OF SUCH DAMAGE.
  *
  * @category  Mail
- * @package   Mail_Mime
+ * @package   Mail_Mime2
  * @author    Richard Heyes  <richard@phpguru.org>
  * @author    Cipriano Groenendal <cipri@php.net>
  * @author    Sean Coates <sean@php.net>
@@ -49,7 +49,7 @@
  * @copyright 2003-2006 PEAR <pear-group@php.net>
  * @license   http://www.opensource.org/licenses/bsd-license.php BSD License
  * @version   CVS: $Id$
- * @link      http://pear.php.net/package/Mail_mime
+ * @link      http://pear.php.net/package/Mail_Mime2
  */
 
 
@@ -57,13 +57,13 @@
  * The Mail_MimePart2 class is used to create MIME E-mail messages
  *
  * This class enables you to manipulate and build a mime email
- * from the ground up. The Mail_Mime class is a userfriendly api
+ * from the ground up. The Mail_Mime2 class is a userfriendly api
  * to this class for people who aren't interested in the internals
  * of mime mail.
  * This class however allows full control over the email.
  *
  * @category  Mail
- * @package   Mail_Mime
+ * @package   Mail_Mime2
  * @author    Richard Heyes  <richard@phpguru.org>
  * @author    Cipriano Groenendal <cipri@php.net>
  * @author    Sean Coates <sean@php.net>
@@ -71,7 +71,7 @@
  * @copyright 2003-2006 PEAR <pear-group@php.net>
  * @license   http://www.opensource.org/licenses/bsd-license.php BSD License
  * @version   Release: @package_version@
- * @link      http://pear.php.net/package/Mail_mime
+ * @link      http://pear.php.net/package/Mail_Mime2
  */
 class Mail_MimePart2
 {

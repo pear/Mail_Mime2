@@ -1,8 +1,8 @@
 <?php
 /**
- * The Mail_Mime class is used to create MIME E-mail messages
+ * The Mail_Mime2 class is used to create MIME E-mail messages
  *
- * The Mail_Mime class provides an OO interface to create MIME
+ * The Mail_Mime2 class provides an OO interface to create MIME
  * enabled email messages. This way you can create emails that
  * contain plain-text bodies, HTML bodies, attachments, inline
  * images and specific headers.
@@ -40,7 +40,7 @@
  * THE POSSIBILITY OF SUCH DAMAGE.
  *
  * @category  Mail
- * @package   Mail_Mime
+ * @package   Mail_Mime2
  * @author    Richard Heyes  <richard@phpguru.org>
  * @author    Tomas V.V. Cox <cox@idecnet.com>
  * @author    Cipriano Groenendal <cipri@php.net>
@@ -49,7 +49,7 @@
  * @copyright 2003-2006 PEAR <pear-group@php.net>
  * @license   http://www.opensource.org/licenses/bsd-license.php BSD License
  * @version   CVS: $Id$
- * @link      http://pear.php.net/package/Mail_mime
+ * @link      http://pear.php.net/package/Mail_Mime2
  *
  *            This class is based on HTML Mime Mail class from
  *            Richard Heyes <richard@phpguru.org> which was based also
@@ -76,13 +76,13 @@ require_once 'Mail/MimePart2.php';
 
 
 /**
- * The Mail_Mime class provides an OO interface to create MIME
+ * The Mail_Mime2 class provides an OO interface to create MIME
  * enabled email messages. This way you can create emails that
  * contain plain-text bodies, HTML bodies, attachments, inline
  * images and specific headers.
  *
  * @category  Mail
- * @package   Mail_Mime
+ * @package   Mail_Mime2
  * @author    Richard Heyes  <richard@phpguru.org>
  * @author    Tomas V.V. Cox <cox@idecnet.com>
  * @author    Cipriano Groenendal <cipri@php.net>
@@ -90,7 +90,7 @@ require_once 'Mail/MimePart2.php';
  * @copyright 2003-2006 PEAR <pear-group@php.net>
  * @license   http://www.opensource.org/licenses/bsd-license.php BSD License
  * @version   Release: @package_version@
- * @link      http://pear.php.net/package/Mail_mime
+ * @link      http://pear.php.net/package/Mail_Mime2
  */
 class Mail_Mime2
 {
@@ -172,7 +172,7 @@ class Mail_Mime2
      * @return void
      * @access public
      */
-    function Mail_mime($params = array())
+    function __construct($params = array())
     {
         // Backward-compatible EOL setting
         if (is_string($params)) {
@@ -686,7 +686,7 @@ class Mail_Mime2
     /**
      * Returns the complete e-mail, ready to send using an alternative
      * mail delivery method. Note that only the mailpart that is made
-     * with Mail_Mime is created. This means that,
+     * with Mail_Mime2 is created. This means that,
      * YOU WILL HAVE NO TO: HEADERS UNLESS YOU SET IT YOURSELF 
      * using the $headers parameter!
      * 
