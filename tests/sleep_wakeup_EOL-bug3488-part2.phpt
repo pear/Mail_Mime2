@@ -6,7 +6,7 @@ if (!is_readable('sleep_wakeup_data')) {
 }
 --FILE--
 <?php
-require_once('Mail/mime.php');
+require_once 'Mail/Mime2.php';
 $filename = 'sleep_wakeup_data';
 $fp = fopen($filename, 'r');
 $smm = fread($fp, filesize($filename));

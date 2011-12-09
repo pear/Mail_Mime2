@@ -3,8 +3,8 @@ Bug #3488   Sleep/Wakeup EOL Consistency - Part 1
 --SKIPIF--
 --FILE--
 <?php
-require_once('Mail/mime.php');
-$mm = new Mail_mime("\n");
+require_once 'Mail/Mime2.php';
+$mm = new Mail_Mime2("\n");
 $mm->setHTMLBody('<html></html>');
 $mm->setTxtBody('Blah blah');
 
