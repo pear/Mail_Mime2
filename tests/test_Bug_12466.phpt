@@ -3,13 +3,13 @@ Bug #12466  Content-Transfer-Encoding checking
 --SKIPIF--
 --FILE--
 <?php
-include("Mail/mime.php");
+require_once "Mail/Mime2.php";
 
 $params = array(
     'text_encoding' => '7bit',
     'html_encoding' => '7bit',
 );
-$mime = new Mail_mime($params);
+$mime = new Mail_Mime($params);
 $mime->setTXTBody("ż");
 $mime->setHTMLBody("z");
 $body = $mime->getMessage();

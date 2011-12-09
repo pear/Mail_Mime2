@@ -5,9 +5,9 @@ Bug #10999  Bad Content-ID(cid) format
 <?php
 $from='user@from.example.com';
 
-require_once('Mail/mime.php');
+require_once 'Mail/Mime2.php';
 
-$mime=new Mail_mime();
+$mime=new Mail_Mime2();
 
 $body='<img src="test.gif"/>';
 

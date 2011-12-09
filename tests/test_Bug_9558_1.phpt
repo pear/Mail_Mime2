@@ -3,9 +3,9 @@ Bug #9558   Broken multiline headers
 --SKIPIF--
 --FILE--
 <?php
-include("Mail/mime.php");
+require_once "Mail/Mime2.php";
 
-$encoder = new Mail_mime();
+$encoder = new Mail_Mime2();
 $input[] = "received by me
     at some point
     from some server";

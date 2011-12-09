@@ -5,9 +5,9 @@ Bug #12385  Bad regex when replacing css style attachments
 <?php
 $from='user@from.example.com';
 
-require_once('Mail/mime.php');
+require_once 'Mail/Mime2.php';
 
-$mime=new Mail_mime();
+$mime=new Mail_Mime2();
 
 $body="<style>
 className {

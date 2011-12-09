@@ -4,8 +4,8 @@ Bug #3513   Support of RFC2231 in header fields. (ISO-8859-1)
 --FILE--
 <?php
 $test = "Fóóbær.txt";
-require_once('Mail/mime.php');
-$Mime=new Mail_Mime();
+require_once 'Mail/Mime2.php';
+$Mime=new Mail_Mime2();
 $Mime->addAttachment('testfile',"text/plain", $test, FALSE, 'base64', 'attachment', 'ISO-8859-1');
 $root = $Mime->_addMixedPart();
 $enc = $Mime->_addAttachmentPart($root, $Mime->_parts[0]);

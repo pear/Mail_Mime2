@@ -3,8 +3,8 @@ Bug #10596  Incorrect handling of text and html '0' bodies
 --SKIPIF--
 --FILE--
 <?php
-include("Mail/mime.php");
-$mime = new Mail_mime();
+require_once "Mail/mime.php";
+$mime = new Mail_Mime2();
 $mime->setTxtBody('0');
 $mime->setHTMLBody('0');
 $body = $mime->get();

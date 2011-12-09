@@ -3,9 +3,9 @@ Bug #9725   multipart/related & alternative wrong order
 --SKIPIF--
 --FILE--
 <?php
-include("Mail/mime.php");
+require_once "Mail/mime2.php";
 
-$mime = new Mail_mime();
+$mime = new Mail_Mime2();
 $mime->setTXTBody("test");
 $mime->setHTMLBody("test");
 $mime->addHTMLImage("test", 'application/octet-stream', '', false);

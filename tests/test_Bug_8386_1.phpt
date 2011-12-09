@@ -4,8 +4,8 @@ Bug #8386   HTML body not correctly encoded if attachments present
 --FILE--
 <?php
 $eol = "\n#";
-include("Mail/mime.php");
-$encoder = new Mail_mime(array('eol'=>$eol));
+require_once "Mail/Mime2.php";
+$encoder = new Mail_Mime2(array('eol'=>$eol));
 $encoder->setTXTBody('test');
 $encoder->setHTMLBody('<b>test</b>');
 $encoder->addAttachment('Just a test', 'application/octet-stream', 'test.txt', false);
