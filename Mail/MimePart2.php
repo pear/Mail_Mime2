@@ -1,6 +1,6 @@
 <?php
 /**
- * The Mail_mimePart class is used to create MIME E-mail messages
+ * The Mail_MimePart2 class is used to create MIME E-mail messages
  *
  * This class enables you to manipulate and build a mime email
  * from the ground up. The Mail_Mime class is a userfriendly api
@@ -54,7 +54,7 @@
 
 
 /**
- * The Mail_mimePart class is used to create MIME E-mail messages
+ * The Mail_MimePart2 class is used to create MIME E-mail messages
  *
  * This class enables you to manipulate and build a mime email
  * from the ground up. The Mail_Mime class is a userfriendly api
@@ -73,7 +73,7 @@
  * @version   Release: @package_version@
  * @link      http://pear.php.net/package/Mail_mime
  */
-class Mail_MimePart2
+class Mail_MimePart22
 {
     /**
     * The encoding type of this part
@@ -423,7 +423,7 @@ class Mail_MimePart2
      * @param array  $params The parameters for the subpart, same
      *                       as the $params argument for constructor.
      *
-     * @return Mail_mimePart A reference to the part you just added. It is
+     * @return Mail_MimePart2 A reference to the part you just added. It is
      *                       crucial if using multipart/* in your subparts that
      *                       you use = in your script when calling this function,
      *                       otherwise you will not be able to add further subparts.
@@ -431,7 +431,7 @@ class Mail_MimePart2
      */
     function addSubpart($body, $params)
     {
-        $this->_subparts[] = new Mail_MimePart2($body, $params);
+        $this->_subparts[] = new Mail_MimePart22($body, $params);
         return $this->_subparts[count($this->_subparts) - 1];
     }
 
@@ -805,7 +805,7 @@ class Mail_MimePart2
             // Simple e-mail address regexp
             $email_regexp = '(\S+|("[^\r\n"]+"))@\S+';
 
-            $parts = Mail_mimePart::_explodeQuotedString($separator, $value);
+            $parts = Mail_MimePart2::_explodeQuotedString($separator, $value);
             $value = '';
 
             foreach ($parts as $part) {
@@ -850,7 +850,7 @@ class Mail_MimePart2
                             } else {
                                 $last_len = strlen($value);
                             }
-                            $word = Mail_mimePart::encodeHeaderValue(
+                            $word = Mail_MimePart2::encodeHeaderValue(
                                 $word, $charset, $encoding, $last_len, $eol
                             );
                         } else if (($word[0] != '"' || $word[strlen($word)-1] != '"')
@@ -887,7 +887,7 @@ class Mail_MimePart2
                     $value = str_replace($search, $replace, $value);
                     $value = substr($value, 1, -1);
                 }
-                $value = Mail_mimePart::encodeHeaderValue(
+                $value = Mail_MimePart2::encodeHeaderValue(
                     $value, $charset, $encoding, strlen($name) + 2, $eol
                 );
             } else if (strlen($name.': '.$value) > 78) {
@@ -948,7 +948,7 @@ class Mail_MimePart2
     function encodeHeaderValue($value, $charset, $encoding, $prefix_len=0, $eol="\r\n")
     {
         // #17311: Use multibyte aware method (requires mbstring extension)
-        if ($result = Mail_mimePart::encodeMB($value, $charset, $encoding, $prefix_len, $eol)) {
+        if ($result = Mail_MimePart2::encodeMB($value, $charset, $encoding, $prefix_len, $eol)) {
             return $result;
         }
 
@@ -988,7 +988,7 @@ class Mail_MimePart2
             $value = $output;
         } else {
             // quoted-printable encoding has been selected
-            $value = Mail_mimePart::encodeQP($value);
+            $value = Mail_MimePart2::encodeQP($value);
 
             // This regexp will break QP-encoded text at every $maxLength
             // but will not break any encoded letters.
@@ -1054,7 +1054,7 @@ class Mail_MimePart2
         // "=",  "_",  "?" must be encoded
         $regexp = '/([\x22-\x29\x2C\x2E\x3A-\x40\x5B-\x60\x7B-\x7E\x80-\xFF])/';
         $str = preg_replace_callback(
-            $regexp, array('Mail_mimePart', '_qpReplaceCallback'), $str
+            $regexp, array('Mail_MimePart2', '_qpReplaceCallback'), $str
         );
 
         return str_replace(' ', '_', $str);
@@ -1139,7 +1139,7 @@ class Mail_MimePart2
                     $char_len = 1;
                 } else {
                     $char = preg_replace_callback(
-                        $regexp, array('Mail_mimePart', '_qpReplaceCallback'), $char
+                        $regexp, array('Mail_MimePart2', '_qpReplaceCallback'), $char
                     );
                     $char_len = strlen($char);
                 }
