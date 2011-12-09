@@ -162,8 +162,6 @@ class Mail_MimePart2
     {
         if (!empty($params['eol'])) {
             $this->_eol = $params['eol'];
-        } else if (defined('MAIL_MIMEPART_CRLF')) { // backward-copat.
-            $this->_eol = MAIL_MIMEPART_CRLF;
         }
 
         foreach ($params as $key => $value) {

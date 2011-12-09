@@ -177,8 +177,6 @@ class Mail_Mime2
         // Backward-compatible EOL setting
         if (is_string($params)) {
             $this->_build_params['eol'] = $params;
-        } else if (defined('MAIL_MIME_CRLF') && !isset($params['eol'])) {
-            $this->_build_params['eol'] = MAIL_MIME_CRLF;
         }
 
         // Update build parameters
