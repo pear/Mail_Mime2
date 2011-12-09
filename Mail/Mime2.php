@@ -7,7 +7,7 @@
  * contain plain-text bodies, HTML bodies, attachments, inline
  * images and specific headers.
  *
- * Compatible with PHP versions 4 and 5
+ * Compatible with PHP version 5
  *
  * LICENSE: This LICENSE is in the BSD license style.
  * Copyright (c) 2002-2003, Richard Heyes <richard@phpguru.org>
@@ -72,7 +72,7 @@ require_once 'PEAR.php';
  * create all the different parts a mail can
  * consist of.
  */
-require_once 'Mail/mimePart.php';
+require_once 'Mail/MimePart2.php';
 
 
 /**
