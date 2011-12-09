@@ -3,7 +3,7 @@ Bug #9725   multipart/related & alternative wrong order
 --SKIPIF--
 --FILE--
 <?php
-require_once "Mail/mime2.php";
+require_once "Mail/Mime2.php";
 
 $mime = new Mail_Mime2();
 $mime->setTXTBody("test");

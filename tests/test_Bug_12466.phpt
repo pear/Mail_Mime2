@@ -9,7 +9,7 @@ $params = array(
     'text_encoding' => '7bit',
     'html_encoding' => '7bit',
 );
-$mime = new Mail_Mime($params);
+$mime = new Mail_Mime2($params);
 $mime->setTXTBody("ż");
 $mime->setHTMLBody("z");
 $body = $mime->getMessage();

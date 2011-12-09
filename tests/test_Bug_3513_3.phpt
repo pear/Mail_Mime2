@@ -6,7 +6,7 @@ Bug #3513   Support of RFC2231 in header fields. (ISO-2022-JP)
 mb_internal_encoding('ISO-2022-JP');
 $testEncoded="GyRCRnxLXDhsGyhCLnR4dA==";
 $test = base64_decode($testEncoded); // Japanese filename in ISO-2022-JP charset.
-require_once 'Mail/mime2.php';
+require_once 'Mail/Mime2.php';
 $Mime=new Mail_Mime2();
 $Mime->addAttachment('testfile',"text/plain", $test, FALSE, 'base64', 'attachment', 'iso-2022-jp', '');
 $root = $Mime->_addMixedPart();

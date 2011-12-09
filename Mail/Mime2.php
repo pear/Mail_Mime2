@@ -532,7 +532,7 @@ class Mail_Mime2
             $ret = $obj->addSubpart($this->_htmlbody, $params);
             return $ret;
         } else {
-            $ret = new Mail_NimePart2($this->_htmlbody, $params);
+            $ret = new Mail_MimePart2($this->_htmlbody, $params);
             return $ret;
         }
     }
