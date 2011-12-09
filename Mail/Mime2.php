@@ -506,7 +506,7 @@ class Mail_Mime2
             $ret = $obj->addSubpart($text, $params);
             return $ret;
         } else {
-            $ret = new Mail_MimePart22($text, $params);
+            $ret = new Mail_MimePart2($text, $params);
             return $ret;
         }
     }
@@ -552,7 +552,7 @@ class Mail_Mime2
         $params['eol']          = $this->_build_params['eol'];
 
         // Create empty multipart/mixed Mail_MimePart2 object to return
-        $ret = new Mail_MimePart22('', $params);
+        $ret = new Mail_MimePart2('', $params);
         return $ret;
     }
 
@@ -575,7 +575,7 @@ class Mail_Mime2
         if (is_object($obj)) {
             return $obj->addSubpart('', $params);
         } else {
-            $ret = new Mail_MimePart22('', $params);
+            $ret = new Mail_MimePart2('', $params);
             return $ret;
         }
     }
@@ -599,7 +599,7 @@ class Mail_Mime2
         if (is_object($obj)) {
             return $obj->addSubpart('', $params);
         } else {
-            $ret = new Mail_MimePart22('', $params);
+            $ret = new Mail_MimePart2('', $params);
             return $ret;
         }
     }
@@ -1314,11 +1314,11 @@ class Mail_Mime2
      * @return string          Encoded header data (without a name)
      * @access public
      * @since 1.5.3
-     * @deprecated Just use Mail_MimePart22::encodeHeader() directly with the right EOL param.
+     * @deprecated Just use Mail_MimePart2::encodeHeader() directly with the right EOL param.
      */
     function encodeHeader($name, $value, $charset, $encoding)
     {
-        return Mail_MimePart22::encodeHeader(
+        return Mail_MimePart2::encodeHeader(
             $name, $value, $charset, $encoding, $this->_build_params['eol']
         );
     }

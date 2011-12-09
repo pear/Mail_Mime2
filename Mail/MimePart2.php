@@ -73,7 +73,7 @@
  * @version   Release: @package_version@
  * @link      http://pear.php.net/package/Mail_mime
  */
-class Mail_MimePart22
+class Mail_MimePart2
 {
     /**
     * The encoding type of this part
@@ -431,7 +431,7 @@ class Mail_MimePart22
      */
     function addSubpart($body, $params)
     {
-        $this->_subparts[] = new Mail_MimePart22($body, $params);
+        $this->_subparts[] = new Mail_MimePart2($body, $params);
         return $this->_subparts[count($this->_subparts) - 1];
     }
 
