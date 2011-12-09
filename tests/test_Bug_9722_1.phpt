@@ -3,7 +3,7 @@ Bug #9722   _quotedPrintableEncode does not encode dot at start of line on Windo
 --SKIPIF--
 --FILE--
 <?php
-require_once  "Mail/MimePart2.php.";
+require_once  "Mail/MimePart2.php";
 $part = new Mail_MimePart2('', array('eol'=>"\n"));
 $text = "This
 is a
