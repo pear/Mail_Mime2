@@ -1286,15 +1286,17 @@ class Mail_Mime2
         foreach ($input as $hdr_name => $hdr_value) {
             if (is_array($hdr_value)) {
                 foreach ($hdr_value as $idx => $value) {
-                    $input[$hdr_name][$idx] = $this->encodeHeader(
+                    $input[$hdr_name][$idx] = Mail_MimePart2::encodeHeader(
                         $hdr_name, $value,
-                        $build_params['head_charset'], $build_params['head_encoding']
+                        $build_params['head_charset'], $build_params['head_encoding'],
+                        $this->_build_params['eol']
                     );
                 }
             } else {
-                $input[$hdr_name] = $this->encodeHeader(
+                $input[$hdr_name] = Mail_MimePart2::encodeHeader(
                     $hdr_name, $hdr_value,
-                    $build_params['head_charset'], $build_params['head_encoding']
+                    $build_params['head_charset'], $build_params['head_encoding'],
+                    $this->_build_params['eol']
                 );
             }
         }

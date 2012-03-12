@@ -237,7 +237,7 @@ class Mail_MimePart2
         }
 
         if (!empty($params['description'])) {
-            $headers['Content-Description'] = $this->encodeHeader(
+            $headers['Content-Description'] = self::encodeHeader(
                 'Content-Description', $params['description'],
                 !empty($params['headers_charset']) ? $params['headers_charset'] : 'US-ASCII',
                 !empty($params['name_encoding']) ? $params['name_encoding'] : 'quoted-printable',
@@ -775,7 +775,7 @@ class Mail_MimePart2
      * @access public
      * @since 1.6.1
      */
-    public function encodeHeader($name, $value, $charset='ISO-8859-1',
+    public static function encodeHeader($name, $value, $charset='ISO-8859-1',
         $encoding='quoted-printable', $eol="\r\n"
     ) {
         // Structured headers
