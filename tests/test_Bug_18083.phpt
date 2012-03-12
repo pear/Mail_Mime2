@@ -3,20 +3,23 @@ Bug #18083  Separate charset for attachment's content and headers
 --SKIPIF--
 --FILE--
 <?php
-include "Mail/Mime2.php";
-$m = new Mail_Mime2();
+include "Mail/MimePart2.php";
 
-$m->addAttachment('testfile', "text/plain",
-    base64_decode("xZtjaWVtYQ=="), FALSE,
-    'base64', 'attachment', 'ISO-8859-1', 'pl', '',
-    'quoted-printable', 'base64', '', 'UTF-8');
+$part = new Mail_MimePart2('', array(
+    'content-type' => 'text/plain',
+    'filename' => base64_decode("xZtjaWVtYQ=="),
+    'disposition' => 'attachment',
+    'headers_charset' => 'UTF-8',
+    'charset' => 'ISO-8859-1',
+    'name_encoding' => 'quoted-printable',
+    'filename_encoding' => 'base64',
+));
+$msg = $part->encode();
 
-$root = $m->_addMixedPart();
-$enc = $m->_addAttachmentPart($root, $m->_parts[0]);
-
-echo $enc->_headers['Content-Type'];
+echo $msg['headers']['Content-Type'];
 echo "\n";
-echo $enc->_headers['Content-Disposition'];
+echo $msg['headers']['Content-Disposition'];
+
 ?>
 --EXPECT--
 text/plain; charset=ISO-8859-1;

@@ -3,8 +3,7 @@ Bug #16539  Headers longer than 998 characters
 --SKIPIF--
 --FILE--
 <?php
-require_once "Mail/Mime2.php";
-$mime = new Mail_Mime2();
+require_once "Mail/MimePart2.php";
 
 $headers = array(
 array('To', 'jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com'),
@@ -12,8 +11,8 @@ array('Subject', 'jskibbie@schawk.com,jskibbie@schawk.com,jskibbie@schawk.com,js
 );
 
 foreach ($headers as $header) {
-    $hdrs = $mime->_encodeHeaders(array($header[0] => $header[1]));
-    print($hdrs[$header[0]]."\n");
+    $hdrs = Mail_MimePart2::encodeHeader($header[0], $header[1]);
+    echo $hdrs."\n";
 }
 ?>
 --EXPECT--

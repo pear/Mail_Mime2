@@ -3,12 +3,16 @@ Bug #15320  Charset parameter in Content-Type of mail parts
 --SKIPIF--
 --FILE--
 <?php
-require_once "Mail/Mime2.php";
-$m = new Mail_mime2();
-$m->addAttachment('testfile', "text/plain", 'file.txt', FALSE, 'base64', 'attachment', 'ISO-8859-1');
-$root = $m->_addMixedPart();
-$enc = $m->_addAttachmentPart($root, $m->_parts[0]);
-print_r($enc->_headers['Content-Type']);
+require_once "Mail/MimePart2.php";
+
+$part = new Mail_MimePart2('', array(
+    'disposition' => 'attachment',
+    'charset' => 'ISO-8859-1',
+    'filename' => 'file.txt',
+));
+
+$msg = $part->encode();
+echo $msg['headers']['Content-Type'];
 ?>
 --EXPECT--
 text/plain; charset=ISO-8859-1;

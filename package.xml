@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.6.0" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" 
-xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd            
+<package packagerversion="1.6.0" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0"
+xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd
 http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Mail_Mime</name>
  <channel>pear.php.net</channel>
@@ -49,7 +49,6 @@ using RFC2047 and/or RFC2231.</description>
    </dir> <!-- /scripts -->
    <dir name="tests">
     <file baseinstalldir="Mail" name="class-filename.phpt" role="test" />
-    <file baseinstalldir="Mail" name="encoding_case.phpt" role="test" />
     <file baseinstalldir="Mail" name="headers_with_mbstring.phpt" role="test" />
     <file baseinstalldir="Mail" name="headers_without_mbstring.phpt" role="test" />
     <file baseinstalldir="Mail" name="sleep_wakeup_EOL-bug3488-part1.phpt" role="test" />

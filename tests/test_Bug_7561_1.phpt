@@ -1,5 +1,5 @@
 --TEST--
-Bug #7561   Mail_mimePart::_quotedPrintableEncode() misbehavior with mbstring overload
+Bug #7561   Quoted-printable misbehavior with mbstring overload
 --SKIPIF--
 <?php
 include "PEAR.php";
@@ -17,10 +17,16 @@ ini_set('mbstring.internal_encoding',   'UTF-8');
 ini_set('mbstring.http_output',         'UTF-8');
 
 require_once "Mail/MimePart2.php";
-$part = new Mail_MimePart2('', array('eol'=>"\n"));
+
 // string is UTF-8 encoded
 $input = "Micha\xC3\xABl \xC3\x89ric St\xC3\xA9phane";
-$rv = $part->_quotedPrintableEncode($input);
-echo $rv, "\n";
+$part = new Mail_MimePart2($input, array(
+    'eol'=>"\n",
+    'encoding' => 'quoted-printable'
+));
+
+$msg = $part->encode();
+echo $msg['body'], "\n";
+
 --EXPECT--
 Micha=C3=ABl =C3=89ric St=C3=A9phane
