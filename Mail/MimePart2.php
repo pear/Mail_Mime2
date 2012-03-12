@@ -803,7 +803,7 @@ class Mail_MimePart2
         // Structured header (make sure addr-spec inside is not encoded)
         if (!empty($separator)) {
             // Simple e-mail address regexp
-            $email_regexp = '(\S+|("[^\r\n"]+"))@\S+';
+            $email_regexp = '([^\s<]+|("[^\r\n"]+"))@\S+';
 
             $parts = Mail_MimePart2::_explodeQuotedString($separator, $value);
             $value = '';
