@@ -31,7 +31,7 @@ using RFC2047 and/or RFC2231.</description>
  </lead>
  <date>2012-01-01</date>
  <version>
-  <release>1.0</release>
+  <release>1.0.0</release>
   <api>1.0</api>
  </version>
  <stability>
@@ -91,5 +91,5 @@ using RFC2047 and/or RFC2231.</description>
   </required>
  </dependencies>
  <phprelease />
- </changelog>
+ <changelog></changelog>
 </package>
