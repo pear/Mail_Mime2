@@ -556,6 +556,7 @@ class Mail_MimePart2
         $eol = $this->_eol;
         /*
         // imap_8bit() is extremely fast, but doesn't handle properly some characters
+        // the same for quoted_printable_encode(), see RFC2049 (3.8)
         if (function_exists('imap_8bit') && $line_max == 76) {
             $input = preg_replace('/\r?\n/', "\r\n", $input);
             $input = imap_8bit($input);
@@ -565,6 +566,7 @@ class Mail_MimePart2
             return $input;
         }
         */
+
         $lines  = preg_split("/\r?\n/", $input);
         $escape = '=';
         $output = '';
