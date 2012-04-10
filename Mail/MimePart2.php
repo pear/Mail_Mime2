@@ -53,13 +53,6 @@
  */
 
 /**
- * require PEAR
- *
- * This package depends on PEAR to raise errors.
- */
-require_once 'PEAR.php';
-
-/**
  * The Mail_MimePart2 class is used to create MIME E-mail messages
  *
  * This class enables you to manipulate and build a mime email
