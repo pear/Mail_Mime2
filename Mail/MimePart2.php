@@ -52,6 +52,12 @@
  * @link      http://pear.php.net/package/Mail_Mime2
  */
 
+/**
+ * require PEAR
+ *
+ * This package depends on PEAR to raise errors.
+ */
+require_once 'PEAR.php';
 
 /**
  * The Mail_MimePart2 class is used to create MIME E-mail messages
