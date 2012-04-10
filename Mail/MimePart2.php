@@ -264,7 +264,7 @@ class Mail_MimePart2
      *
      * @return An associative array containing two elements,
      *         body and headers. The headers element is itself
-     *         an indexed array. On error returns PEAR error object.
+     *         an indexed array.
      * @access public
      */
     public function encode($boundary=null)
@@ -282,9 +282,6 @@ class Mail_MimePart2
             for ($i = 0; $i < count($this->_subparts); $i++) {
                 $encoded['body'] .= '--' . $boundary . $eol;
                 $tmp = $this->_subparts[$i]->encode();
-                if (PEAR::isError($tmp)) {
-                    return $tmp;
-                }
                 foreach ($tmp['headers'] as $key => $value) {
                     $encoded['body'] .= $key . ': ' . $value . $eol;
                 }
@@ -305,9 +302,6 @@ class Mail_MimePart2
                 @ini_set('magic_quotes_runtime', $magic_quote_setting);
             }
 
-            if (PEAR::isError($body)) {
-                return $body;
-            }
             $encoded['body'] = $body;
         } else {
             $encoded['body'] = '';
@@ -328,20 +322,18 @@ class Mail_MimePart2
      * @param boolean $skip_head True if you don't want to save headers
      *
      * @return array An associative array containing message headers
-     *               or PEAR error object
+     * @throws InvalidArgumentException
      * @access public
      * @since 1.6.0
      */
     public function encodeToFile($filename, $boundary=null, $skip_head=false)
     {
         if (file_exists($filename) && !is_writable($filename)) {
-            $err = PEAR::raiseError('File is not writeable: ' . $filename);
-            return $err;
+            throw new InvalidArgumentException('File is not writeable: ' . $filename);
         }
 
         if (!($fh = fopen($filename, 'ab'))) {
-            $err = PEAR::raiseError('Unable to open file: ' . $filename);
-            return $err;
+            throw new InvalidArgumentException('Unable to open file: ' . $filename);
         }
 
         // Temporarily reset magic_quotes_runtime for file reads and writes
@@ -357,7 +349,7 @@ class Mail_MimePart2
             @ini_set('magic_quotes_runtime', $magic_quote_setting);
         }
 
-        return PEAR::isError($res) ? $res : $this->_headers;
+        return $this->_headers;
     }
 
     /**
@@ -367,7 +359,7 @@ class Mail_MimePart2
      * @param string  $boundary  Pre-defined boundary string
      * @param boolean $skip_head True if you don't want to save headers
      *
-     * @return array True on sucess or PEAR error object
+     * @return array True on sucess
      * @access private
      */
     private function _encodePartToFile($fh, $boundary=null, $skip_head=false)
@@ -392,9 +384,6 @@ class Mail_MimePart2
             for ($i = 0; $i < count($this->_subparts); $i++) {
                 fwrite($fh, $f_eol . '--' . $boundary . $eol);
                 $res = $this->_subparts[$i]->_encodePartToFile($fh);
-                if (PEAR::isError($res)) {
-                    return $res;
-                }
                 $f_eol = $eol;
             }
 
@@ -407,9 +396,6 @@ class Mail_MimePart2
             $res = $this->_getEncodedDataFromFile(
                 $this->_body_file, $this->_encoding, $fh
             );
-            if (PEAR::isError($res)) {
-                return $res;
-            }
         }
 
         return true;
@@ -472,19 +458,18 @@ class Mail_MimePart2
      * @param resource $fh       Output file handle. If set, data will be
      *                           stored into it instead of returning it
      *
-     * @return string Encoded data or PEAR error object
+     * @return string Encoded data
      * @access private
+     * @throws InvalidArgumentException
      */
     private function _getEncodedDataFromFile($filename, $encoding, $fh=null)
     {
         if (!is_readable($filename)) {
-            $err = PEAR::raiseError('Unable to read file: ' . $filename);
-            return $err;
+            throw new InvalidArgumentException('Unable to read file: ' . $filename);
         }
 
         if (!($fd = fopen($filename, 'rb'))) {
-            $err = PEAR::raiseError('Could not open file: ' . $filename);
-            return $err;
+            throw new InvalidArgumentException('Could not open file: ' . $filename);
         }
 
         $data = '';
