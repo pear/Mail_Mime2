@@ -223,7 +223,7 @@ class Mail_Mime2
      *                       the existing body, else the old body is
      *                       overwritten
      *
-     * @return mixed         True on success or PEAR_Error object
+     * @return mixed         True on success
      * @access public
      */
     public function setTXTBody($data, $isfile = false, $append = false)
@@ -236,9 +236,6 @@ class Mail_Mime2
             }
         } else {
             $cont = $this->_file2str($data);
-            if (PEAR::isError($cont)) {
-                return $cont;
-            }
             if (!$append) {
                 $this->_txtbody = $cont;
             } else {
@@ -277,9 +274,6 @@ class Mail_Mime2
             $this->_htmlbody = $data;
         } else {
             $cont = $this->_file2str($data);
-            if (PEAR::isError($cont)) {
-                return $cont;
-            }
             $this->_htmlbody = $cont;
         }
 
@@ -327,9 +321,7 @@ class Mail_Mime2
                 $filedata = null;
                 $bodyfile = $file;
             } else {
-                if (PEAR::isError($filedata = $this->_file2str($file))) {
-                    return $filedata;
-                }
+                $filedata = $this->_file2str($file);
             }
             $filename = ($name ? $name : $file);
         } else {
@@ -379,7 +371,7 @@ class Mail_Mime2
      * @param string $h_charset   The character set of the headers e.g. filename
      *                            If not specified, $charset will be used
      *
-     * @return mixed              True on success or PEAR_Error object
+     * @return mixed              True on success
      * @access public
      */
     public function addAttachment($file,
@@ -404,9 +396,7 @@ class Mail_Mime2
                 $filedata = null;
                 $bodyfile = $file;
             } else {
-                if (PEAR::isError($filedata = $this->_file2str($file))) {
-                    return $filedata;
-                }
+                $filedata = $this->_file2str($file);
             }
             // Force the name the user supplied, otherwise use $file
             $filename = ($name ? $name : $file);
@@ -688,7 +678,7 @@ class Mail_Mime2
      *                           See that function for more info.
      * @param bool   $overwrite  Overwrite the existing headers with new.
      *
-     * @return mixed The complete e-mail or PEAR error object
+     * @return mixed The complete e-mail
      * @access public
      */
     public function getMessage($separation = null, $params = null, $headers = null,
@@ -699,10 +689,6 @@ class Mail_Mime2
         }
 
         $body = $this->get($params);
-
-        if (PEAR::isError($body)) {
-            return $body;
-        }
 
         $head = $this->txtHeaders($headers, $overwrite);
         $mail = $head . $separation . $body;
@@ -716,7 +702,7 @@ class Mail_Mime2
      * @param array $params The Build parameters passed to the
      *                      &get() function. See &get for more info.
      *
-     * @return mixed The e-mail body or PEAR error object
+     * @return mixed The e-mail body
      * @access public
      * @since 1.6.0
      */
@@ -736,7 +722,7 @@ class Mail_Mime2
      *                          See that function for more info.
      * @param bool   $overwrite Overwrite the existing headers with new.
      *
-     * @return mixed True or PEAR error object
+     * @return mixed True 
      * @access public
      * @since 1.6.0
      * @throws InvalidArgumentException
