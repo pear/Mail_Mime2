@@ -386,6 +386,7 @@ class Mail_Mime2
      * @param string $description Content-Description header
      * @param string $h_charset   The character set of the headers e.g. filename
      *                            If not specified, $charset will be used
+     * @param array  $add_headers Additional part headers
      *
      * @return mixed              True on success or PEAR_Error object
      * @access public
@@ -402,7 +403,8 @@ class Mail_Mime2
         $n_encoding  = null,
         $f_encoding  = null,
         $description = '',
-        $h_charset   = null
+        $h_charset   = null,
+        $add_headers = array()
     ) {
         $bodyfile = null;
 
@@ -441,6 +443,7 @@ class Mail_Mime2
             'location'    => $location,
             'disposition' => $disposition,
             'description' => $description,
+            'add_headers' => $add_headers,
             'name_encoding'     => $n_encoding,
             'filename_encoding' => $f_encoding,
             'headers_charset'   => $h_charset,
@@ -678,6 +681,9 @@ class Mail_Mime2
         }
         if (!empty($value['description'])) {
             $params['description'] = $value['description'];
+        }
+        if (is_array($value['add_headers'])) {
+            $params['headers'] = $value['add_headers'];
         }
 
         $ret = $obj->addSubpart($value['body'], $params);
