@@ -11,7 +11,7 @@ $filename = $path . base64_decode("xZtjaWVtYQ==");
 $m->addAttachment('testfile', "text/plain", $filename, FALSE, 'base64', 'attachment', 'ISO-8859-1');
 $msg = $m->get();
 
-if (strpos($msg, "filename*=ISO-8859-1''%C5%9Bciema")) {
+if (strpos($msg, "filename*=ISO-8859-1''%C5%9Bciema;")) {
     echo "OK";
 }
 ?>

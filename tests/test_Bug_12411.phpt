@@ -7,11 +7,6 @@ include "Mail/MimePart2.php";
 
 // some text with polish Unicode letter at the beginning
 $filename = base64_decode("xZtjaWVtYQ==");
-/*
-$m->addAttachment('testfile', "text/plain", $filename, FALSE,
-    'base64', 'attachment', 'ISO-8859-1', 'pl', '',
-    'quoted-printable', 'base64');
-*/
 $part = new Mail_MimePart2('', array(
     'filename' => $filename,
     'disposition' => 'attachment',
