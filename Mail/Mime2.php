@@ -420,7 +420,7 @@ class Mail_Mime2
                 }
             }
             // Force the name the user supplied, otherwise use $file
-            $filename = ($name ? $name : $file);
+            $filename = ($name ? $name : self::_basename($file));
         } else {
             $filedata = $file;
             $filename = $name;
@@ -431,7 +431,6 @@ class Mail_Mime2
             $err = PEAR::raiseError($msg);
             return $err;
         }
-        $filename = self::_basename($filename);
 
         $this->_parts[] = array(
             'body'        => $filedata,
