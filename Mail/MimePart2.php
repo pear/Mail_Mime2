@@ -811,6 +811,7 @@ class Mail_MimePart2
             'from', 'to', 'cc', 'bcc', 'sender', 'reply-to',
             'resent-from', 'resent-to', 'resent-cc', 'resent-bcc',
             'resent-sender', 'resent-reply-to',
+            'mail-reply-to', 'mail-followup-to',
             'return-receipt-to', 'disposition-notification-to',
         );
         $other_headers = array(
