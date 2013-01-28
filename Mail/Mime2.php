@@ -57,14 +57,6 @@
  *            and Sascha Schumann <sascha@schumann.cx>
  */
 
-
-/**
- * require PEAR
- *
- * This package depends on PEAR to raise errors.
- */
-require_once 'PEAR.php';
-
 /**
  * require Mail_MimePart2
  *
@@ -231,7 +223,7 @@ class Mail_Mime2
      *                       the existing body, else the old body is
      *                       overwritten
      *
-     * @return mixed         True on success or PEAR_Error object
+     * @return mixed         True on success
      * @access public
      */
     public function setTXTBody($data, $isfile = false, $append = false)
@@ -244,9 +236,6 @@ class Mail_Mime2
             }
         } else {
             $cont = $this->_file2str($data);
-            if (PEAR::isError($cont)) {
-                return $cont;
-            }
             if (!$append) {
                 $this->_txtbody = $cont;
             } else {
@@ -285,9 +274,6 @@ class Mail_Mime2
             $this->_htmlbody = $data;
         } else {
             $cont = $this->_file2str($data);
-            if (PEAR::isError($cont)) {
-                return $cont;
-            }
             $this->_htmlbody = $cont;
         }
 
@@ -335,9 +321,7 @@ class Mail_Mime2
                 $filedata = null;
                 $bodyfile = $file;
             } else {
-                if (PEAR::isError($filedata = $this->_file2str($file))) {
-                    return $filedata;
-                }
+                $filedata = $this->_file2str($file);
             }
             $filename = ($name ? $name : $file);
         } else {
@@ -389,7 +373,7 @@ class Mail_Mime2
      * @param array  $add_headers Additional part headers. Array keys can be in form
      *                            of <header_name>:<parameter_name>
      *
-     * @return mixed              True on success or PEAR_Error object
+     * @return mixed              True on success
      * @access public
      */
     public function addAttachment($file,
@@ -415,9 +399,7 @@ class Mail_Mime2
                 $filedata = null;
                 $bodyfile = $file;
             } else {
-                if (PEAR::isError($filedata = $this->_file2str($file))) {
-                    return $filedata;
-                }
+                $filedata = $this->_file2str($file);
             }
             // Force the name the user supplied, otherwise use $file
             $filename = ($name ? $name : self::_basename($file));
@@ -428,8 +410,7 @@ class Mail_Mime2
 
         if (!strlen($filename)) {
             $msg = "The supplied filename for the attachment can't be empty";
-            $err = PEAR::raiseError($msg);
-            return $err;
+            throw new InvalidArgumentException($msg);
         }
 
         $this->_parts[] = array(
@@ -459,21 +440,19 @@ class Mail_Mime2
      *
      * @return string           Contents of $file_name
      * @access private
+     * @throws InvalidArgumentException
      */
     private function _file2str($file_name)
     {
         // Check state of file and raise an error properly
         if (!file_exists($file_name)) {
-            $err = PEAR::raiseError('File not found: ' . $file_name);
-            return $err;
+            throw new InvalidArgumentException('File not found: ' . $file_name);
         }
         if (!is_file($file_name)) {
-            $err = PEAR::raiseError('Not a regular file: ' . $file_name);
-            return $err;
+            throw new InvalidArgumentException('Not a regular file: ' . $file_name);
         }
         if (!is_readable($file_name)) {
-            $err = PEAR::raiseError('File is not readable: ' . $file_name);
-            return $err;
+            throw new InvalidArgumentException('File is not readable: ' . $file_name);
         }
 
         // Temporarily reset magic_quotes_runtime and read file contents
@@ -705,7 +684,7 @@ class Mail_Mime2
      *                           See that function for more info.
      * @param bool   $overwrite  Overwrite the existing headers with new.
      *
-     * @return mixed The complete e-mail or PEAR error object
+     * @return mixed The complete e-mail
      * @access public
      */
     public function getMessage($separation = null, $params = null, $headers = null,
@@ -716,10 +695,6 @@ class Mail_Mime2
         }
 
         $body = $this->get($params);
-
-        if (PEAR::isError($body)) {
-            return $body;
-        }
 
         $head = $this->txtHeaders($headers, $overwrite);
         $mail = $head . $separation . $body;
@@ -733,7 +708,7 @@ class Mail_Mime2
      * @param array $params The Build parameters passed to the
      *                      &get() function. See &get for more info.
      *
-     * @return mixed The e-mail body or PEAR error object
+     * @return mixed The e-mail body
      * @access public
      * @since 1.6.0
      */
@@ -753,16 +728,16 @@ class Mail_Mime2
      *                          See that function for more info.
      * @param bool   $overwrite Overwrite the existing headers with new.
      *
-     * @return mixed True or PEAR error object
+     * @return mixed True 
      * @access public
      * @since 1.6.0
+     * @throws InvalidArgumentException
      */
     public function saveMessage($filename, $params = null, $headers = null, $overwrite = false)
     {
         // Check state of file and raise an error properly
         if (file_exists($filename) && !is_writable($filename)) {
-            $err = PEAR::raiseError('File is not writable: ' . $filename);
-            return $err;
+            throw new InvalidArgumentException('File is not writable: ' . $filename);
         }
 
         // Temporarily reset magic_quotes_runtime and read file contents
@@ -771,14 +746,14 @@ class Mail_Mime2
         }
 
         if (!($fh = fopen($filename, 'ab'))) {
-            $err = PEAR::raiseError('Unable to open file: ' . $filename);
-            return $err;
+            throw new InvalidArgumentException('Unable to open file: ' . $filename);
         }
 
         // Write message headers into file (skipping Content-* headers)
         $head = $this->txtHeaders($headers, $overwrite, true);
         if (fwrite($fh, $head) === false) {
-            $err = PEAR::raiseError('Error writing to file: ' . $filename);
+            /** @todo Better exception? */
+            throw new InvalidArgumentException('Error writing to file: ' . $filename);
             return $err;
         }
 
@@ -801,15 +776,16 @@ class Mail_Mime2
      * @param array  $params   The Build parameters passed to the
      *                         &get() function. See &get for more info.
      *
-     * @return mixed True or PEAR error object
+     * @return mixed True
      * @access public
      * @since 1.6.0
+     * @throws InvalidArgumentException
      */
     public function saveMessageBody($filename, $params = null)
     {
         // Check state of file and raise an error properly
         if (file_exists($filename) && !is_writable($filename)) {
-            $err = PEAR::raiseError('File is not writable: ' . $filename);
+            throw new InvalidArgumentException('File is not writable: ' . $filename);
             return $err;
         }
 
@@ -819,8 +795,7 @@ class Mail_Mime2
         }
 
         if (!($fh = fopen($filename, 'ab'))) {
-            $err = PEAR::raiseError('Unable to open file: ' . $filename);
-            return $err;
+            throw new InvalidArgumentException('Unable to open file: ' . $filename);
         }
 
         // Write the rest of the message into file
@@ -840,7 +815,7 @@ class Mail_Mime2
      * @param boolean  $skip_head True if you want to return/save only the message
      *                            without headers
      *
-     * @return mixed The MIME message content string, null or PEAR error object
+     * @return mixed The MIME message content string, null 
      * @access public
      */
     public function get($params = null, $filename = null, $skip_head = false)
@@ -1017,16 +992,10 @@ class Mail_Mime2
         if ($filename) {
             // Append mimePart message headers and body into file
             $headers = $message->encodeToFile($filename, $boundary, $skip_head);
-            if (PEAR::isError($headers)) {
-                return $headers;
-            }
             $this->_headers = array_merge($this->_headers, $headers);
             return null;
         } else {
             $output = $message->encode($boundary, $skip_head);
-            if (PEAR::isError($output)) {
-                return $output;
-            }
             $this->_headers = array_merge($this->_headers, $output['headers']);
             $body = $output['body'];
             return $body;
