@@ -330,7 +330,7 @@ class Mail_Mime2
         }
 
         if (!$content_id) {
-            $content_id = md5(uniqid(time()));
+            $content_id = preg_replace('/[^0-9a-zA-Z]/', '', uniqid(time(), true));
         }
 
         $this->_html_images[] = array(
